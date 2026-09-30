@@ -27,7 +27,12 @@ export const loginUserController = async (req, res) => {
 
     await userModel.findByIdAndUpdate(user._id, {refressToken})
 
-    res.cookie("refressToken", refressToken, {httpOnly: true})
+    
+    res.cookie("refressToken", refressToken, {
+        httpOnly: true,
+        secure: true,     
+        sameSite: 'none'
+    })
 
     return res.status(200).json({
         message: "User logged in successfully",
@@ -65,7 +70,12 @@ export const registerUserController = async (req, res)=>{
 
     await userModel.findByIdAndUpdate(user._id, {refressToken})
 
-    res.cookie("refressToken", refressToken)
+    
+    res.cookie("refressToken", refressToken, {
+        httpOnly: true,
+        secure: true,      
+        sameSite: 'none'
+    })
 
     return res.status(200).json({
         message: "User created successfully",
@@ -155,7 +165,11 @@ export const refreshController = async (req, res) => {
 
         await userModel.findByIdAndUpdate(id, {refressToken: newRefressToken})
 
-        res.cookie("refressToken", newRefressToken)
+        res.cookie("refressToken", newRefressToken, {
+            httpOnly: true,
+            secure: true,      
+            sameSite: 'none'
+        })
 
         return res.status(200).json({
             message: "Tokens rotated successfully",
