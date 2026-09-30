@@ -135,7 +135,6 @@ export const refreshController = async (req, res) => {
         console.log(refressToken);
         
         if(!refressToken){
-            await userModel.findByIdAndUpdate(id, {refressToken: null})
             return res.status(404).json({
                 message: "Refress token not found"
             })
