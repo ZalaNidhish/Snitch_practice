@@ -16,7 +16,7 @@ export const authenticate = async (req, res, next)=>{
         const blacklisted = await blacklistModel.findOne({token})
 
         if(blacklisted){
-            return res.status(400).json({
+            return res.status(403).json({
                 message: "Access token expired"
             })
         }
@@ -27,7 +27,7 @@ export const authenticate = async (req, res, next)=>{
 
     }catch(err){
         console.log(err);
-        return res.status(400).json({
+        return res.status(403).json({
             message: "Invalid access token",
             errors: err
         })
